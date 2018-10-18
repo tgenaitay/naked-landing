@@ -1,0 +1,122 @@
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Naked playground landing</title>
+      <meta name="description" content="Flexible, convenient, affordable coworking office space and community - check out what naked Hub can do for your start-up, small company or MNC.">
+      <link href="style.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.min.css">
+
+    </head>
+    <body>
+
+    <div id="navbar">
+      <img src="images/logo.png" alt="">
+    </div>
+
+    <div id="header">
+      <h1>Naked is Work, redesigned</h1>
+      <p>interact, collaborate, achieve</p>
+      <p><a href="#footer" class="input btn">Get in touch!</a></p>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <img src="images/flexibility-black.png" alt="flexibility">
+        <h2>Flexibility</h2>
+        <p>Office on demand + Pay per month + Access to all locations</p>
+      </div>
+      <div class="card">
+        <img src="images/community-black.png" alt="community">
+        <h2>Community</h2>
+        <p>Online & offline professional network</p>
+      </div>
+      <div class="card">
+        <img src="images/convenience-black.png" alt="convenience">
+        <h2>Convenience</h2>
+        <p>One price, no hidden fees - we make it easy</p>
+      </div>
+    </div>
+
+    <div class="map">
+
+      <!-- MAP GOES HERE -->
+
+      <img src="" alt="">
+
+    </div>
+
+    <div id="footer">
+      <h3>Do you want to join our community?</h3>
+      <form action="" class="book">
+        <input type="text" placeholder="Phone here" class="input" id="phone">
+        <input type="submit" value="Book a tour!" class="input btn" id="book">
+
+        <!-- TODO 1: SET TWILIO PHONE NUMBER WITHOUT SPECIAL CHARACTERS -->
+        <!-- example: (607) 882-6525 ==> 16078826525 -->
+        <input type="hidden" value="16078826525" id="from">
+
+        <!-- TODO 2: SET YOUR TWILIO LOGIN -->
+        <input type="hidden" value="ACcd6e8dbb7eb363fc2e40d5dadab3c9a1" id="login">
+
+        <!-- TODO 3: SET YOUR TWILIO PASSWORD -->
+        <input type="hidden" value="67e214f61d9aa8bb98cab6a067ed9dca" id="password">
+
+        <!-- TODO 4: SET YOUR OWN MESSAGE -->
+        <input type="hidden" value="Thank you for signing up, we look forward to meeting you" id="body">
+
+      </form>
+      <p>This is a playground landing © Le Wagon x nakedHub</p>
+      <ul>
+        <li><a href="#"><i class="fa fa-weibo"></i></a></li>
+        <li><a href="#"><i class="fa fa-weixin"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+
+    <script>
+
+    let element = document.getElementById('book')
+    let phone = document.getElementById('phone')
+    let from = document.getElementById('from')
+    let body = document.getElementById('body')
+    let login = document.getElementById('login')
+    let password = document.getElementById('password')
+
+    element.addEventListener('click', twilio_call)
+
+    function twilio_call(e){
+
+      e.preventDefault();
+      var to = phone.value
+      var sender = from.value
+      body = body.value
+      login = login.value
+      password = password.value
+
+      var url = 'https://api.twilio.com/2010-04-01/Accounts/ACcd6e8dbb7eb363fc2e40d5dadab3c9a1/Messages.json'
+
+      var headers_object = {
+        "content-type": "application/x-www-form-urlencoded",
+        "authorization": `Basic ${base64.encode(`${login}:${password}`)}`,
+      }
+
+      var request_body_string = "From=%2B"+sender+"&To=%2B86"+to+"+&Body="+body
+
+      fetch(url,{ method:"POST", headers: headers_object, body:request_body_string})
+        .then(
+          function(response) {
+            // Examine the text in the response from the API
+            response.json().then(function(response_body_object) {
+              // We have succesfully posted data!!
+              console.log(response_body_object);
+              alert(response_body_object)
+            });
+          }
+        );
+
+    }
+
+    </script>
+    </body>
+  </html>
