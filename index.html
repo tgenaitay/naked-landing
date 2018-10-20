@@ -39,8 +39,7 @@
 
     <div class="map">
 
-      <!-- MAP GOES HERE -->
-
+      <!-- MAP GOES UNDER in the "img" tag -->
       <img src="" alt="">
 
     </div>
@@ -94,7 +93,7 @@
       login = login.value
       password = password.value
 
-      var url = 'https://api.twilio.com/2010-04-01/Accounts/ACcd6e8dbb7eb363fc2e40d5dadab3c9a1/Messages.json'
+      var url = `https://api.twilio.com/2010-04-01/Accounts/${login}/Messages.json`
 
       var headers_object = {
         "content-type": "application/x-www-form-urlencoded",
